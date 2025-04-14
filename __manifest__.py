@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "sale_consignment_gn",
+    'name': "Sale Consignment GN",
 
-    'summary': "Short (1 phrase/line) summary of the module's purpose",
+    'summary': "Manage consignment sales operations",
 
     'description': """
-Long description of module's purpose
+        This module adds consignment sales functionality:
+        * Mark products as consignable
+        * Track consigned inventory by partner
+        * Manage consignment orders and movements
     """,
 
     'author': "My Company",
@@ -14,21 +17,32 @@ Long description of module's purpose
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/15.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
-    'category': 'Uncategorized',
+    'category': 'Sales/Sales',
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': [
+        'base',
+        'product',
+        'stock',
+        'sale'
+    ],
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
-        'views/views.xml',
-        'views/templates.xml',
+        'security/security.xml',
+        'security/ir.model.access.csv',
+        'views/product_template_views.xml',
+        'views/consigned_order_views.xml',
+        'views/consigned_move_views.xml',
+        'views/menu_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
     ],
+
+    'application': True,
+    'installable': True,
 }
 

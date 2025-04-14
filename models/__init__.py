@@ -1,3 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from . import models
+from . import product_template
+from . import res_partner
+from . import consigned_partner_stock
+from . import consigned_order
+from . import consigned_order_line
+from . import consigned_move
+from . import consigned_move_line

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Consigned Order List View -->
+    <record id="view_consigned_order_list" model="ir.ui.view">
+        <field name="name">consigned.order.list</field>
+        <field name="model">consigned.order</field>
+        <field name="arch" type="xml">
+            <list string="Consigned Orders">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="settlement_date"/>
+                <field name="list_prices"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Consigned Order Form View -->
+    <record id="view_consigned_order_form" model="ir.ui.view">
+        <field name="name">consigned.order.form</field>
+        <field name="model">consigned.order</field>
+        <field name="arch" type="xml">
+            <form string="Consigned Order">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="settlement_date"/>
+                        </group>
+                        <group>
+                            <field name="list_prices"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Order Lines">
+                            <field name="order_line_ids">
+                                <list editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="returned_quantity"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Consigned Order Action -->
+    <record id="action_consigned_order" model="ir.actions.act_window">
+        <field name="name">Consigned Orders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">consigned.order</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo> 
