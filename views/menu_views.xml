@@ -1,33 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    
-    <!-- Top menu item -->
-    <menuitem name="Consignment"
-        id="menu_sale_consignment_root"
-        web_icon="sale_consignment_gn,static/description/icon.png"
-        sequence="50"/>
+    <menuitem name="Consignment" id="menu_sale_consignment_root" web_icon="sale_consignment_gn,static/description/icon.png" sequence="50">
+        <menuitem name="Operations" id="menu_sale_consignment_operations">
+            <menuitem name="Consigned Orders" id="menu_consigned_order" action="action_consigned_order" />
+        </menuitem>
+        <menuitem name="Partner Stock" id="menu_consigned_partner_stock" action="action_consigned_partner_stock" />
 
-    <!-- Main menus -->
-    <menuitem name="Operations"
-        id="menu_sale_consignment_operations"
-        parent="menu_sale_consignment_root"
-        sequence="10"/>
-
-    <menuitem name="Configuration"
-        id="menu_sale_consignment_config"
-        parent="menu_sale_consignment_root"
-        sequence="100"/>
-
-    <!-- Operation menu items -->
-    <menuitem name="Consigned Orders"
-        id="menu_consigned_order"
-        parent="menu_sale_consignment_operations"
-        action="action_consigned_order"
-        sequence="10"/>
-
-    <menuitem name="Consigned Moves"
-        id="menu_consigned_move"
-        parent="menu_sale_consignment_operations"
-        action="action_consigned_move"
-        sequence="20"/>
+        <menuitem name="Configuration" id="menu_sale_consignment_config" >
+        </menuitem>
+    </menuitem>
 </odoo> 
