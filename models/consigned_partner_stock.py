@@ -11,4 +11,4 @@ class ConsignedPartnerStock(models.Model):
     partner_id = fields.Many2one('res.partner', string='Partner', required=True)
     quantity = fields.Integer(string='Quantity', default=0)
     company_id = fields.Many2one('res.company', string='Company', required=True,
-                                default=lambda self: self.env.company) 
+                                default=lambda self: self.env.company)

@@ -3,11 +3,20 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
+ORDER_STATE = [
+    ('draft', 'Draft'),
+    ('pending', 'Pending'),
+    ('confirmed', 'Confirmed'),
+    ('done', 'Done'),
+    ('cancel', 'Cancel')
+]
+
 class ConsignedOrder(models.Model):
     _name = 'consigned.order'
     _description = 'Consigned Order'
     _inherit = ['mail.thread', 'mail.activity.mixin']
-
+    
+    # generic fields
     name = fields.Char(
         string='Reference',
         required=True,
@@ -16,46 +25,70 @@ class ConsignedOrder(models.Model):
         default=lambda self: _('New'),
         tracking=True
     )
+
+    state = fields.Selection(
+        ORDER_STATE,
+        string='Status',
+        default='draft',
+        tracking=True
+    )
+
+    company_id = fields.Many2one(
+        'res.company',
+        string='Company',
+        required=True,
+        default=lambda self: self.env.company
+    )
     partner_id = fields.Many2one(
         'res.partner',
-        string='Partner',
+        string='Customer',
         required=True,
         tracking=True
     )
+
     settlement_date = fields.Date(
         string='Settlement Date',
         tracking=True
     )
+    @api.constrains('settlement_date')
+    def _check_settlement_date(self):
+        for order in self:
+            if order.settlement_date and order.settlement_date < fields.Date.today():
+                raise UserError(_('Settlement date cannot be in the past.'))
 
+    ## Currency
+    currency_id = fields.Many2one(
+        'res.currency',
+        string='Currency',
+        required=True,
+        default=lambda self: self.env.company.currency_id)
+
+    total_price = fields.Monetary(
+        string='Total Price',
+        compute='_compute_total_price',
+        currency_field='currency_id'
+    )
+
+    # Logic fields
     order_line_ids = fields.One2many(
-        'consigned.order.line', 
-        'order_id', 
+        'consigned.order.line',
+        'order_id',
         string='Order Lines'
     )
 
-    total_price = fields.Float(
-        string='Total Price',
-        compute='_compute_total_price'
-    )
-    
+    ## Movement
     movement_count = fields.Integer(
         string='Movement Count',
         compute='_compute_movement_count'
     )
-    
+
+    ## Tracking
     tracking_count = fields.Integer(
         string='Tracking Count',
         compute='_compute_tracking_count'
     )
 
-    state = fields.Selection([
-        ('draft', 'Draft'),
-        ('pending', 'Pending'),
-        ('confirmed', 'Confirmed'),
-        ('done', 'Done'),
-        ('cancelled', 'Cancelled')
-    ], string='Status', default='draft', tracking=True)
-
+    ## Picking
     picking_ids = fields.One2many('stock.picking', 'consignment_id', string='Transfers')
     picking_count = fields.Integer(string='Transfer Count', compute='_compute_picking_count')
 
@@ -64,13 +97,6 @@ class ConsignedOrder(models.Model):
         string='Warehouse',
         required=True,
         default=lambda self: self.env['stock.warehouse'].search([], limit=1)
-    )
-    
-    company_id = fields.Many2one(
-        'res.company',
-        string='Company',
-        required=True,
-        default=lambda self: self.env.company
     )
 
     """ Computed fields """
@@ -128,7 +154,7 @@ class ConsignedOrder(models.Model):
             'type': 'ir.actions.act_window',
             'name': 'Transfers',
             'res_model': 'stock.picking',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'domain': [('id', 'in', self.picking_ids.ids)],
         }
 
@@ -136,7 +162,6 @@ class ConsignedOrder(models.Model):
         self.ensure_one()
         if not self.order_line_ids:
             raise UserError(_('Cannot confirm an order without lines.'))
-        
         # Create outgoing picking
         picking_out = self._create_picking('outgoing')
         self.state = 'confirmed'
@@ -150,7 +175,7 @@ class ConsignedOrder(models.Model):
             'res_model': 'stock.return.picking',
             'view_mode': 'form',
             'target': 'new',
-            'context': {'default_picking_id': self.picking_ids[0].id if self.picking_ids else False},
+            'context': {'default_picking_id': self.picking_ids[0].id if self.picking_ids else False, 'default_consignment_id': self.id},
         }
 
     def _create_picking(self, picking_type):

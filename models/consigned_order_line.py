@@ -6,16 +6,26 @@ class ConsignedOrderLine(models.Model):
     _name = 'consigned.order.line'
     _description = 'Consigned Order Line'
 
-    product_id = fields.Many2one('product.product', string='Product', required=True)
     order_id = fields.Many2one('consigned.order', string='Order', required=True, ondelete='cascade')
+
+    ## Related fields
+
+    company_id = fields.Many2one('res.company', related='order_id.company_id', store=True, index=True, precompute=True)
+    currency_id = fields.Many2one('res.currency', related='order_id.currency_id', store=True, index=True, precompute=True)
+    partner_id = fields.Many2one('res.partner', related='order_id.partner_id', store=True, index=True, precompute=True)
+    state = fields.Selection(related='order_id.state', store=True, index=True, precompute=True)
+
+    ## Generic fields
+    product_id = fields.Many2one('product.product', string='Product', required=True, domain="[('can_be_consigned', '=', True)]")
     quantity = fields.Integer(string='Quantity', required=True)
     returned_quantity = fields.Integer(string='Returned Quantity', default=0)
     
     remaining_quantity = fields.Integer(string='Remaining Quantity', compute='_compute_remaining_quantity')
-    
+
+    ## Pricing fields
     unit_price = fields.Float(string='Unit Price', compute='_compute_unit_price')
     total_price = fields.Float(string='Total Price', compute='_compute_total_price')
-    
+
     """ Movements """
     stock_move_ids = fields.One2many('stock.move', 'consignment_line_id', string='Stock Movements')
     picking_ids = fields.Many2many(

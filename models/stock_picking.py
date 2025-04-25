@@ -7,24 +7,34 @@ class StockPicking(models.Model):
 
     consignment_id = fields.Many2one('consigned.order', string='Consignment Order', copy=False)
     is_consignment = fields.Boolean(string='Is Consignment', compute='_compute_is_consignment', store=True)
-    consignment_move_ids = fields.Many2many('stock.move', string='Consignment Moves', 
-        compute='_compute_consignment_move_ids')
 
     @api.depends('consignment_id')
     def _compute_is_consignment(self):
         for picking in self:
             picking.is_consignment = bool(picking.consignment_id)
 
-    @api.depends('consignment_id', 'move_ids.consignment_line_id')
-    def _compute_consignment_move_ids(self):
-        for picking in self:
-            if not picking.consignment_id:
-                picking.consignment_move_ids = False
-                continue
-            
-            # Obtener las líneas de consignación relacionadas
-            consignment_lines = picking.consignment_id.mapped('order_line_ids')
-            # Obtener todos los movimientos relacionados con estas líneas
-            related_moves = consignment_lines.mapped('stock_move_ids')
-            # Filtrar los movimientos que no son del picking actual
-            picking.consignment_move_ids = related_moves.filtered(lambda m: m.picking_id != picking) 
+    # Cuando una orden sea confirmada ajusta el stock de ConsignedPartnerStock
+    def action_confirm(self):
+        super(StockPicking, self).action_confirm()
+        if self.consignment_id:
+            for picking in self:
+                for move in picking.move_ids:
+                    # Buscar el registro de ConsignedPartnerStock existente
+                    consigned_partner_stock = self.env['consigned.partner.stock'].search([
+                        ('product_product_id', '=', move.product_id.id),
+                        ('partner_id', '=', self.consignment_id.partner_id.id)
+                    ], limit=1)
+                    
+                    if consigned_partner_stock:
+                        # Actualizar la cantidad existente
+                        consigned_partner_stock.quantity += move.quantity
+                    else:
+                        # Crear un nuevo registro
+                        self.env['consigned.partner.stock'].create({
+                            'product_product_id': move.product_id.id,
+                            'product_template_id': move.product_id.product_tmpl_id.id,
+                            'quantity': move.quantity,
+                            'partner_id': self.consignment_id.partner_id.id,
+                        })
+    
+

@@ -6,12 +6,30 @@
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_form_view"/>
         <field name="arch" type="xml">
-                <div name="options" position="inside">
-                    <span class="d-inline-flex">
-                        <field name="can_be_consigned"/>
-                        <label for="can_be_consigned"/>
-                    </span>
-                </div>
+            <div name="options" position="inside">
+                <span class="d-inline-flex">
+                    <field name="can_be_consigned"/>
+                    <label for="can_be_consigned"/>
+                </span>
+            </div>
         </field>
     </record>
-</odoo> 
+
+    <record id="product_template_search_view_consignment" model="ir.ui.view">
+        <field name="name">product.template.search.consignment</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <filter name="filter_to_sell" position="after">
+                <filter string="Consigned" name="filter_can_be_consigned" domain="[('can_be_consigned', '=', True)]"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="product_template_action_consignment_view" model="ir.actions.act_window">
+        <field name="name">Products consigned</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">kanban,list,form,activity</field>
+        <field name="context">{'default_can_be_consigned': True, 'search_default_filter_can_be_consigned': 1}</field>
+    </record>
+</odoo>

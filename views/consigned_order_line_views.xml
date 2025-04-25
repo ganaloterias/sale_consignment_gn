@@ -1,0 +1,25 @@
+<odoo>
+  <record id="consigned_order_line_form" model="ir.ui.view">
+    <field name="name">consigned.order.line.form</field>
+    <field name="model">consigned.order.line</field>
+    <field name="arch" type="xml">
+      <form string="Consigned Order Line">
+      </form>
+    </field>
+  </record>
+
+  <record id="consigned_order_line_list" model="ir.ui.view">
+    <field name="name">consigned.order.line.list</field>
+    <field name="model">consigned.order.line</field>
+    <field name="arch" type="xml">
+      <list string="Consigned Order Line">
+        <field name="product_id"/>
+        <field name="quantity"/>
+        <field name="returned_quantity"/>
+        <field name="remaining_quantity"/>
+        <field name="unit_price"/>
+        <field name="total_price"/>
+      </list>
+    </field>
+  </record>
+</odoo>
