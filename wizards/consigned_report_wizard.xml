@@ -6,15 +6,19 @@
         <field name="name">view.consigned_report_wizard.form</field>
         <field name="model">consigned.report.wizard</field>
         <field name="arch" type="xml">
-            <form string="Consigned Report Wizard">
+            <form string="Informe de Consignaciones">
+                <p class="text-muted">
+                    Este informe mostrará las consignaciones agrupadas por cliente a la fecha de liquidación especificada.
+                    Puede filtrar opcionalmente por clientes y productos específicos.
+                </p>
                 <group>
                     <field name="settlement_date"/>
                     <field name="partner_ids" widget="many2many_tags"/>
                     <field name="product_ids" widget="many2many_tags"/>
                 </group>
                 <footer>
-                    <button name="print_report" type="object" string="Add" class="oe_highlight"/>
-                    <button special="cancel" string="Cancel"/>
+                    <button name="print_report" type="object" string="Generar Informe" class="oe_highlight"/>
+                    <button special="cancel" string="Cancelar"/>
                 </footer>
             </form>
         </field>
@@ -22,7 +26,7 @@
 
     <!-- Action consiged_report_wizard -->
     <record id="action_consigned_report_wizard" model="ir.actions.act_window">
-        <field name="name">Consigned Report Wizard</field>
+        <field name="name">Informe de Consignaciones</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">consigned.report.wizard</field>
         <field name="view_mode">form</field>

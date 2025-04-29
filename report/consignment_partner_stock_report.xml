@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="action_report_consignment_partner_stock" model="ir.actions.report">
-        <field name="name">Partner Consignment Stock Report</field>
-        <field name="model">res.partner</field>
+        <field name="name">Informe de Consignaciones</field>
+        <field name="model">consigned.report.wizard</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">sale_consignment_gn.consignment_partner_stock_report</field>
         <field name="report_file">sale_consignment_gn.consignment_partner_stock_report</field>
-        <field name="print_report_name">'Consignaciones - %s' % (object.name)</field>
+        <field name="print_report_name">'Consignaciones - %s' % (context_timestamp(datetime.datetime.now()).strftime("%Y-%m-%d"))</field>
         <field name="binding_model_id" ref="model_consigned_order_line" />
         <field name="binding_type">report</field>
     </record>
@@ -17,12 +17,7 @@
                 <t t-call="web.external_layout">
                     <div class="page">
                         <h2>
-                            <t t-if="data.get('settlement_date')">
-                                Consignaciones a fecha de <span t-esc="data.get('settlement_date')"/>
-                            </t>
-                            <t t-else="">
-                                Consignaciones
-                            </t>
+                            Consignaciones a fecha de <span t-esc="doc.settlement_date"/>
                         </h2>
                         <div class="d-flex justify-content-between mb-3 mt-3">
                             <div class="table d-flex gap-3 table-borderless">
@@ -33,10 +28,6 @@
                                 <div>
                                     <strong>Fecha Informe</strong>
                                     <div t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"></div>
-                                </div>
-                                <div t-if="data.get('state')">
-                                    <strong>Estado</strong>
-                                    <div t-esc="dict([('draft', 'Borrador'), ('pending', 'Pendiente'), ('confirmed', 'Confirmada'), ('done', 'Finalizada'), ('cancel', 'Cancelada')]).get(data.get('state'))"></div>
                                 </div>
                             </div>
                         </div>

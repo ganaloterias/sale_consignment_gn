@@ -19,7 +19,8 @@ class ConsignedReportWizard(models.TransientModel):
     def print_report(self):
         data = {
             'settlement_date': self.settlement_date,
-            'partner_ids': self.partner_ids,
-            'product_ids': self.product_ids,
+            'state': 'confirmed',
+            'partner_ids': self.partner_ids.ids if self.partner_ids else [],
+            'product_ids': self.product_ids.ids if self.product_ids else [],
         }
-        return self.env.ref('sale_consignment_gn.action_report_consigned_report').report_action(self, data=data)
+        return self.env.ref('sale_consignment_gn.action_report_consignment_partner_stock').report_action(self, data)
