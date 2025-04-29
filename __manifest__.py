@@ -29,17 +29,22 @@
     ],
 
     # always loaded
-    'data': [
-        'security/security.xml',
-        'security/ir.model.access.csv',
-        'views/product_template_views.xml',
-        'views/consigned_order_views.xml',
-        'views/consigned_order_line_views.xml',
-        'views/consigned_partner_stock.xml',
-        'views/res_config_settings_views.xml',
-        'views/res_partner_views.xml',
-        'views/menu_views.xml',
-        'data/sequence_data.xml',
+    "data": [
+        "data/sequence_data.xml",
+        "security/ir.model.access.csv",
+        "security/security.xml",
+        # views
+        "views/consigned_order_line_views.xml",
+        "views/consigned_order_views.xml",
+        "views/consigned_partner_stock.xml",
+        "views/consigned_commission_views.xml",
+        "views/menu_views.xml",
+        "views/product_template_views.xml",
+        "views/res_config_settings_views.xml",
+        "views/consigned_res_partner_views.xml",
+        # reports
+        "report/consignment_order_reports.xml",
+        # wizards
     ],
     # only loaded in demonstration mode
     'demo': [

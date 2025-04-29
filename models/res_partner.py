@@ -11,6 +11,12 @@ class ResPartner(models.Model):
         string='Consignment Stock'
     )
 
+    consigned_commission_ids = fields.One2many(
+        'consigned.commission',
+        'partner_id',
+        string='Consigned Commissions'
+    )
+
     consignment_order_ids = fields.One2many(
         'consigned.order',
         'partner_id',

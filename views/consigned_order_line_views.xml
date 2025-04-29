@@ -1,4 +1,11 @@
 <odoo>
+  <record id="consigned_order_line_action" model="ir.actions.act_window">
+    <field name="name">Consigned Order Lines</field>
+    <field name="res_model">consigned.order.line</field>
+    <field name="view_mode">list,form</field>
+    <field name="context">{'search_default_only_in_stock': 1, 'search_default_group_by_partner': 1, 'search_default_group_by_product': 1}</field>
+  </record>
+
   <record id="consigned_order_line_form" model="ir.ui.view">
     <field name="name">consigned.order.line.form</field>
     <field name="model">consigned.order.line</field>
@@ -12,14 +19,43 @@
     <field name="name">consigned.order.line.list</field>
     <field name="model">consigned.order.line</field>
     <field name="arch" type="xml">
-      <list string="Consigned Order Line">
+      <list string="Consigned Order Line" create="false" edit="false" delete="false">
+        <field name="settlement_date"/>
+        <field name="partner_id"/>
         <field name="product_id"/>
         <field name="quantity"/>
         <field name="returned_quantity"/>
-        <field name="remaining_quantity"/>
-        <field name="unit_price"/>
-        <field name="total_price"/>
+        <field name="remaining_quantity" sum="Total quantity"/>
+        <field name="company_id" optional="show" readonly="1"/>
+        <field name="currency_id" optional="hide"/>
+        <field name="unit_price" widget="monetary"/>
+        <field name="total_price" widget="monetary" sum="Total price"/>
       </list>
+    </field>
+  </record>
+
+  <record id="consigned_order_line_search" model="ir.ui.view">
+    <field name="name">consigned.order.line.search</field>
+    <field name="model">consigned.order.line</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="partner_id"/>
+        <field name="product_id"/>
+        <separator/>
+        <filter name="my_orders" string="My Orders" domain="[('partner_id', '=', uid)]"/>
+        <filter name="my_returns" string="My Returns" domain="[('partner_id', '=', uid), ('returned_quantity', '>', 0)]"/>
+        <separator/>
+        <filter name="only_in_stock" string="Only In Stock" domain="['|', ('state', '=', 'pending'), ('state', '=', 'confirmed')]"/>
+        <separator/>
+        <group expand="0" string="Group By">
+          <group string="Partner">
+            <filter name="group_by_partner" string="By Partner" context="{'group_by': 'partner_id'}" />
+          </group>
+          <group string="Product">
+            <filter name="group_by_product" string="By Product" context="{'group_by': 'product_id'}" />
+          </group>
+        </group>
+      </search>
     </field>
   </record>
 </odoo>

@@ -1,0 +1,59 @@
+<odoo>
+    <record id="action_consigned_commission" model="ir.actions.act_window">
+        <field name="name">Comisiones</field>
+        <field name="res_model">consigned.commission</field>
+        <field name="view_mode">list,form,search</field>
+        <field name="context">{'search_default_group_by_partner': 1}</field>
+    </record>
+
+
+    <record id="view_consigned_commission_form" model="ir.ui.view">
+        <field name="name">consigned.commission.form</field>
+        <field name="model">consigned.commission</field>
+        <field name="arch" type="xml">
+            <form string="Comisión">
+                <sheet>
+                    <group>
+                        <field name="partner_id"/>
+                        <field name="product_id"/>
+                        <field name="commission_type"/>
+                        <field name="commission_value"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_consigned_commission_list" model="ir.ui.view">
+        <field name="name">consigned.commission.list</field>
+        <field name="model">consigned.commission</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="partner_id"/>
+                <field name="product_id"/>
+                <field name="commission_type"/>
+                <field name="commission_value"/>
+            </list>
+        </field>
+    </record>
+    
+    <!-- search view -->
+    <record id="view_consigned_commission_search" model="ir.ui.view">
+        <field name="name">consigned.commission.search</field>
+        <field name="model">consigned.commission</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id"/>
+                <field name="product_id"/>
+                <field name="commission_type"/>
+                <field name="commission_value"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_partner" string="Partner" context="{'group_by': 'partner_id'}" />
+                    <filter name="group_by_product" string="Product" context="{'group_by': 'product_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+    
+</odoo>

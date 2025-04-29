@@ -1,0 +1,100 @@
+<odoo>
+  <record id="action_report_consignment_order_form" model="ir.actions.report">
+    <field name="name">Form - Consignment Order</field>
+    <field name="model">consigned.order</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">sale_consignment_gn.consignment_order_template_report</field>
+    <field name="report_file">sale_consignment_gn.consignment_order_template_report</field>
+    <field name="print_report_name">'Formulario - %s' % (object.display_name)</field>
+    <field name="binding_model_id" ref="model_consigned_order" />
+    <field name="binding_type">report</field>
+  </record>
+
+  <template id="consignment_order_template_report">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="o">
+        <t t-call="web.external_layout">
+          <div class="page">
+            <t t-set="layout_document_title">
+              <span t-field="o.name"></span>
+            </t>
+            <div class="d-flex justify-content-between mb-3 mt-3">
+              <div class="table d-flex gap-3 table-borderless">
+                <div>
+                  <strong>Customer</strong>
+                  <div t-field="o.partner_id"></div>
+                </div>
+                <div>
+                  <strong>Settlement Date</strong>
+                  <div t-field="o.settlement_date"></div>
+                </div>
+              </div>
+              <img t-if="o.name" t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.name, 400, 50)" />
+            </div>
+            <t t-call="sale_consignment_gn.consignment_products_table">
+              <t t-set="order_lines" t-value="o.order_line_ids"/>
+            </t>
+            <div id="right-elements" t-attf-class="#{'col-5' if report_type != 'html' else 'col-12 col-md-5'} ms-5 d-inline-block float-end">
+              <div id="total" class="clearfix row mt-n3">
+                <div class="ms-auto">
+                  <table class="o_total_table table table-borderless">
+                    <tbody>
+                      <tr class="o_total">
+                        <td>
+                          <strong>Total a pagar:</strong>
+                        </td>
+                        <td class="text-end">
+                          <strong class="text-nowrap">
+                            <span class="oe_currency_value" t-field="o.total_price"></span>
+                          </strong>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </t>
+      </t>
+    </t>
+  </template>
+
+  <template id="consignment_products_table">
+    <table class="o_has_total_table table o_main_table table-borderless">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Sent</th>
+          <th>Total</th>
+          <th>Price</th>
+          <th>To Pay</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr t-foreach="order_lines" t-as="line">
+          <td>
+            <span t-field="line.product_id.display_name"/>
+          </td>
+          <td>
+            <span t-field="line.quantity"/>
+          </td>
+          <td>
+            <span t-field="line.returned_quantity"/>
+          </td>
+          <td>
+            <span t-field="line.remaining_quantity"/>
+          </td>
+          <td>
+            <span t-field="line.unit_price" class="oe_currency_value"/>
+          </td>
+          <td>
+            <span t-field="line.total_price" class="oe_currency_value"/>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </template>
+
+</odoo>

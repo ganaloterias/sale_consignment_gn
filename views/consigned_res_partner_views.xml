@@ -1,0 +1,38 @@
+<odoo>
+  <!-- Add contextual button on partner form view -->
+  <record id="view_partners_form_consignment" model="ir.ui.view">
+    <field name="name">view.res.partner.form.consignment</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form"/>
+    <field eval="1" name="priority"/>
+    <field name="arch" type="xml">
+      <data>
+        <div name="button_box" position="inside">
+          <button groups="sale_consignment_gn.group_sale_consignment_user" class="oe_stat_button o_res_partner_tip_opp" type="object" name="action_view_consignment" icon="fa-handshake-o">
+            <field string="Consignments" name="consignment_count" widget="statinfo"/>
+          </button>
+        </div>
+      </data>
+    </field>
+  </record>
+
+  <!-- Add page page to view consigned commissions -->
+    <record id="preimpresos_partner_preferences_extended" model="ir.ui.view">
+    <field name="name">res.partner.preimpresos.preferences</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//notebook" position="inside">
+        <page string="Commissions" name="consigned_commission_partner_preferences" groups="sale_consignment_gn.group_sale_consignment_user">
+          <field name="consigned_commission_ids">
+            <list string="Commissions" editable="bottom">
+              <field name="product_id"/>
+              <field name="commission_type"/>
+              <field name="commission_value"/>
+            </list>
+          </field>
+        </page>
+      </xpath>
+    </field>
+  </record>
+</odoo>

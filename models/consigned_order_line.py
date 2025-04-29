@@ -11,20 +11,21 @@ class ConsignedOrderLine(models.Model):
     ## Related fields
 
     company_id = fields.Many2one('res.company', related='order_id.company_id', store=True, index=True, precompute=True)
-    currency_id = fields.Many2one('res.currency', related='order_id.currency_id', store=True, index=True, precompute=True)
-    partner_id = fields.Many2one('res.partner', related='order_id.partner_id', store=True, index=True, precompute=True)
-    state = fields.Selection(related='order_id.state', store=True, index=True, precompute=True)
+    currency_id = fields.Many2one('res.currency', related='order_id.currency_id', store=True, precompute=True)
+    partner_id = fields.Many2one('res.partner', related='order_id.partner_id', store=True, precompute=True)
+    state = fields.Selection(related='order_id.state', store=True, precompute=True)
+    settlement_date = fields.Date(related='order_id.settlement_date', index=True, precompute=True)
 
     ## Generic fields
     product_id = fields.Many2one('product.product', string='Product', required=True, domain="[('can_be_consigned', '=', True)]")
     quantity = fields.Integer(string='Quantity', required=True)
     returned_quantity = fields.Integer(string='Returned Quantity', default=0)
     
-    remaining_quantity = fields.Integer(string='Remaining Quantity', compute='_compute_remaining_quantity')
+    remaining_quantity = fields.Integer(string='Remaining Quantity', compute='_compute_remaining_quantity', store=True)
 
     ## Pricing fields
     unit_price = fields.Float(string='Unit Price', compute='_compute_unit_price')
-    total_price = fields.Float(string='Total Price', compute='_compute_total_price')
+    total_price = fields.Float(string='Total Price', compute='_compute_total_price', store=True)
 
     """ Movements """
     stock_move_ids = fields.One2many('stock.move', 'consignment_line_id', string='Stock Movements')
@@ -87,4 +88,14 @@ class ConsignedOrderLine(models.Model):
             'view_mode': 'tree,form',
             'domain': [('id', 'in', self.picking_ids.ids)],
         }
+
+    def _action_add_partner_stock(self):
+        for line in self:
+            # check if the partner is already in the stock.location table
+            partner_location = self.env['stock.location'].search([('name', '=', line.partner_id.name), ('location_id', '=', line.order_id.warehouse_id.partner_id.id)])
+            if not partner_location:
+                # create a new stock.location
+                self.env['stock.location'].create({
+                    'name': line.partner_id.name,
+                    'location_id': line.order_id.warehouse_id.partner_id.id})
 

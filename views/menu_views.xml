@@ -4,7 +4,8 @@
         <menuitem name="Operations" id="menu_sale_consignment_operations">
             <menuitem name="Consigned Orders" id="menu_consigned_order" action="action_consigned_order" />
         </menuitem>
-        <menuitem name="Partner Stock" id="menu_consigned_partner_stock" action="action_consigned_partner_stock" />
+        <menuitem name="Partner Stock" id="menu_consigned_partner_stock" action="consigned_order_line_action" />
+        <menuitem name="Commissions" id="menu_consigned_commission" action="action_consigned_commission" />
 
         <menuitem id="product_menu_catalog_consignment" name="Products" groups="sale_consignment_gn.group_sale_consignment_user" sequence="30">
             <menuitem id="menu_product_template_action_consignment_view" action="product_template_action_consignment_view" sequence="10"/>

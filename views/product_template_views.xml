@@ -12,6 +12,14 @@
                     <label for="can_be_consigned"/>
                 </span>
             </div>
+
+            <xpath expr="//page[@name='general_information']" position="after" >
+                <page name="Consignment" groups="sale_consignment_gn.group_sale_consignment_user">
+                    <group>
+                        <field name="consigned_default_commission" widget="percentage" class="w-25"/>
+                    </group>
+                </page>
+            </xpath>
         </field>
     </record>
 
