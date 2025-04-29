@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_consignment_partner_stock" model="ir.actions.report">
+        <field name="name">Partner Consignment Stock Report</field>
+        <field name="model">res.partner</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sale_consignment_gn.consignment_partner_stock_report</field>
+        <field name="report_file">sale_consignment_gn.consignment_partner_stock_report</field>
+        <field name="print_report_name">'Consignaciones - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_consigned_order_line" />
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="consignment_partner_stock_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>
+                            <t t-if="data.get('settlement_date')">
+                                Consignaciones a fecha de <span t-esc="data.get('settlement_date')"/>
+                            </t>
+                            <t t-else="">
+                                Consignaciones
+                            </t>
+                        </h2>
+                        <div class="d-flex justify-content-between mb-3 mt-3">
+                            <div class="table d-flex gap-3 table-borderless">
+                                <div>
+                                    <strong>Cliente</strong>
+                                    <div t-field="doc.partner.name"></div>
+                                </div>
+                                <div>
+                                    <strong>Fecha Informe</strong>
+                                    <div t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"></div>
+                                </div>
+                                <div t-if="data.get('state')">
+                                    <strong>Estado</strong>
+                                    <div t-esc="dict([('draft', 'Borrador'), ('pending', 'Pendiente'), ('confirmed', 'Confirmada'), ('done', 'Finalizada'), ('cancel', 'Cancelada')]).get(data.get('state'))"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Use the same products table as the consignment order report -->
+                        <t t-call="sale_consignment_gn.consignment_products_table">
+                            <t t-set="order_lines" t-value="doc.order_lines"/>
+                        </t>
+
+                        <div id="right-elements" t-attf-class="#{'col-5' if report_type != 'html' else 'col-12 col-md-5'} ms-5 d-inline-block float-end">
+                            <div id="total" class="clearfix row mt-n3">
+                                <div class="ms-auto">
+                                    <table class="o_total_table table table-borderless">
+                                        <tbody>
+                                            <tr class="o_total">
+                                                <td>
+                                                    <strong>Total a pagar:</strong>
+                                                </td>
+                                                <td class="text-end">
+                                                    <strong class="text-nowrap">
+                                                        <span class="oe_currency_value" t-esc="doc.total_price"></span>
+                                                    </strong>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo> 

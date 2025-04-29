@@ -11,6 +11,10 @@
             <menuitem id="menu_product_template_action_consignment_view" action="product_template_action_consignment_view" sequence="10"/>
         </menuitem>
 
+        <menuitem name="Reports" id="menu_consigned_reports" sequence="40">
+            <menuitem name="Consigned Report" id="menu_consigned_report" action="action_consigned_report_wizard" />
+        </menuitem>
+
         <menuitem name="Configuration" id="menu_sale_consignment_config">
         </menuitem>
     </menuitem>
