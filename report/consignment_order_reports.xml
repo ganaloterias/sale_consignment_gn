@@ -18,18 +18,16 @@
             <t t-set="layout_document_title">
               <span t-field="o.name"></span>
             </t>
-            <div class="d-flex justify-content-between mb-3 mt-3">
-              <div class="table d-flex gap-3 table-borderless">
-                <div>
-                  <strong>Customer</strong>
-                  <div t-field="o.partner_id"></div>
-                </div>
-                <div>
-                  <strong>Settlement Date</strong>
-                  <div t-field="o.settlement_date"></div>
-                </div>
+            <div class="table d-flex justify-content-between table-borderless my-3">
+              <div>
+                <strong>Customer</strong>
+                <div t-field="o.partner_id"></div>
               </div>
-              <img t-if="o.name" t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.name, 400, 50)" />
+              <div>
+                <strong>Settlement Date</strong>
+                <div t-field="o.settlement_date"></div>
+              </div>
+              <img t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.name, 300, 50)" />
             </div>
             <t t-call="sale_consignment_gn.consignment_products_table">
               <t t-set="order_lines" t-value="o.order_line_ids"/>

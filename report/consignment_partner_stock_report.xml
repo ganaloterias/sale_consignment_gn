@@ -1,65 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="action_report_consignment_partner_stock" model="ir.actions.report">
-        <field name="name">Informe de Consignaciones</field>
-        <field name="model">consigned.report.wizard</field>
-        <field name="report_type">qweb-pdf</field>
-        <field name="report_name">sale_consignment_gn.consignment_partner_stock_report</field>
-        <field name="report_file">sale_consignment_gn.consignment_partner_stock_report</field>
-        <field name="print_report_name">'Consignaciones - %s' % (context_timestamp(datetime.datetime.now()).strftime("%Y-%m-%d"))</field>
-        <field name="binding_model_id" ref="model_consigned_order_line" />
-        <field name="binding_type">report</field>
-    </record>
+  <record id="action_report_consignment_partner_stock" model="ir.actions.report">
+    <field name="name">Consignment Report</field>
+    <field name="model">consigned.report.wizard</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">sale_consignment_gn.consignment_partner_stock_report</field>
+    <field name="report_file">sale_consignment_gn.consignment_partner_stock_report</field>
+    <field name="print_report_name">'Consignment - %s' % (context_timestamp(datetime.datetime.now()).strftime("%Y-%m-%d"))</field>
+    <field name="binding_model_id" ref="model_consigned_report_wizard" />
+    <field name="binding_type">report</field>
+  </record>
 
-    <template id="consignment_partner_stock_report">
-        <t t-call="web.html_container">
-            <t t-foreach="docs" t-as="doc">
-                <t t-call="web.external_layout">
-                    <div class="page">
-                        <h2>
-                            Consignaciones a fecha de <span t-esc="doc.settlement_date"/>
-                        </h2>
-                        <div class="d-flex justify-content-between mb-3 mt-3">
-                            <div class="table d-flex gap-3 table-borderless">
-                                <div>
-                                    <strong>Cliente</strong>
-                                    <div t-field="doc.partner.name"></div>
-                                </div>
-                                <div>
-                                    <strong>Fecha Informe</strong>
-                                    <div t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Use the same products table as the consignment order report -->
-                        <t t-call="sale_consignment_gn.consignment_products_table">
-                            <t t-set="order_lines" t-value="doc.order_lines"/>
-                        </t>
-
-                        <div id="right-elements" t-attf-class="#{'col-5' if report_type != 'html' else 'col-12 col-md-5'} ms-5 d-inline-block float-end">
-                            <div id="total" class="clearfix row mt-n3">
-                                <div class="ms-auto">
-                                    <table class="o_total_table table table-borderless">
-                                        <tbody>
-                                            <tr class="o_total">
-                                                <td>
-                                                    <strong>Total a pagar:</strong>
-                                                </td>
-                                                <td class="text-end">
-                                                    <strong class="text-nowrap">
-                                                        <span class="oe_currency_value" t-esc="doc.total_price"></span>
-                                                    </strong>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </t>
-            </t>
+  <template id="consignment_partner_stock_report" t-name="sale_consignment_gn.consignment_partner_stock_report">
+    <t t-call="web.html_container">
+      <t t-call="web.external_layout">
+        <t t-set="layout_document_title">
+          <span t-esc="settlement_date" t-options='{"widget": "date"}'></span>
         </t>
-    </template>
+        <!-- For each partner, create a separate section -->
+        <t t-foreach="partners" t-as="partner_info">
+          <div class="page mt-4 partner-section" style="page-break-inside: avoid;">
+            <div class="row mb-3">
+              <div class="col-6">
+                <h3>
+                  <strong>Partner:</strong>
+                  <span t-esc="partner_info['partner'].name"/>
+                </h3>
+              </div>
+              <div class="col-6 text-right f">
+                  <strong>Settlement Date:</strong>
+                  <span t-esc="settlement_date" t-options='{"widget": "date"}'/>
+              </div>
+            </div>
+
+            <!-- For each product group, create a table -->
+            <table class="table table-sm table-bordered">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Price</th>
+                  <th>Remaining</th>
+                  <th>Returned</th>
+                  <th>To Pay</th>
+                  <th>Paid</th>
+                </tr>
+              </thead>
+              <tbody>
+                <t t-foreach="partner_info['product_groups']" t-as="product_group">
+                  <t t-foreach="product_group['lines']" t-as="line">
+                    <tr>
+                      <td>
+                        <span t-esc="line['product']"/>
+                      </td>
+                      <td>
+                        <span t-esc="line['price']" t-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+                      </td>
+                      <td>
+                        <span t-esc="line['remaining']"/>
+                      </td>
+                      <td>
+                        <t t-if="line['returned'] > 0">
+                          <span t-esc="line['returned']"/>
+                        </t>
+                        <t t-else="">
+                          <!-- Empty cell for manual entry -->
+                        </t>
+                      </td>
+                      <td>
+                        <span t-esc="line['to_pay']" t-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+                      </td>
+                      <td>
+                        <t t-if="line['paid'] > 0">
+                          <span t-esc="line['paid']" t-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+                        </t>
+                        <t t-else="">
+                          <!-- Empty cell for manual entry -->
+                        </t>
+                      </td>
+                    </tr>
+                  </t>
+                </t>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="3"></td>
+                  <td>
+                    <strong>Total</strong>
+                  </td>
+                  <td>
+                    <strong>
+                      <t t-set="total_to_pay" t-value="sum(line['to_pay'] for product_group in partner_info['product_groups'] for line in product_group['lines'])"/>
+                      <span t-esc="total_to_pay" t-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+                    </strong>
+                  </td>
+                  <td>
+                    <t t-if="partner_info['total_paid'] > 0">
+                      <strong>
+                        <span t-esc="partner_info['total_paid']" t-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+                      </strong>
+                    </t>
+                    <t t-else="">
+                      <!-- Empty cell for manual entry -->
+                    </t>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+
+            <!-- Signature space -->
+            <div class="row mt-5">
+              <div class="col-12 text-center">
+                <div style="width: 50%; margin: 0 auto;">
+                  <div style="border-bottom: 1px solid black; height: 40px;"></div>
+                  <p class="mt-1">Customer Signature</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </t>
+      </t>
+    </t>
+  </template>
+
 </odoo> 

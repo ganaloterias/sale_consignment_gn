@@ -17,10 +17,25 @@ class ConsignedReportWizard(models.TransientModel):
     product_ids = fields.Many2many('product.product', string=_('Product'), domain="[('can_be_consigned', '=', True)]")
 
     def print_report(self):
+        self.ensure_one()
+
+        # Preparar datos para el reporte
         data = {
             'settlement_date': self.settlement_date,
             'state': 'confirmed',
             'partner_ids': self.partner_ids.ids if self.partner_ids else [],
             'product_ids': self.product_ids.ids if self.product_ids else [],
         }
-        return self.env.ref('sale_consignment_gn.action_report_consignment_partner_stock').report_action(self, data)
+        # Verificar si hay órdenes para esta fecha
+        orders = self.env['consigned.order'].search_count([
+            ('settlement_date', '=', self.settlement_date),
+            ('state', '=', 'confirmed')
+        ])
+
+        if not orders:
+            # Mostrar advertencia si no hay órdenes
+            raise UserError(_("No se encontraron órdenes de consignación para la fecha %s") % self.settlement_date)
+        # Obtener la acción del reporte
+        report_action = self.env.ref('sale_consignment_gn.action_report_consignment_partner_stock').report_action([], data=data)
+
+        return report_action

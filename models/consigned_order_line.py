@@ -14,7 +14,7 @@ class ConsignedOrderLine(models.Model):
     currency_id = fields.Many2one('res.currency', related='order_id.currency_id', store=True, precompute=True)
     partner_id = fields.Many2one('res.partner', related='order_id.partner_id', store=True, precompute=True)
     state = fields.Selection(related='order_id.state', store=True, precompute=True)
-    settlement_date = fields.Date(related='order_id.settlement_date', index=True, precompute=True)
+    settlement_date = fields.Date(related='order_id.settlement_date', index=True)
 
     ## Generic fields
     product_id = fields.Many2one('product.product', string='Product', required=True, domain="[('can_be_consigned', '=', True)]")
