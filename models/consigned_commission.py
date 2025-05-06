@@ -24,3 +24,31 @@ class ConsignedCommission(models.Model):
         default=0.0,
         required=True
     )
+    
+    """ A fin de centralizar la logica de calculo de comisiones, se crea un metodo que se encarga de calcular la comision
+    de acuerdo al tipo de comision y el valor de la comision.
+    
+    Si llegase a existir una logica diferente para el calculo de comisiones, solo heredara este metodo.
+
+    """
+    def calculate_commission(self, amount):
+        if self.commission_type == 'percentage':
+            return amount * self.commission_value / 100
+        else:
+            return self.commission_value
+
+
+""" Is also inherit from product.template to avoid creating a new field in the product.product model"""
+class ConsignedProductTemplate(models.Model):
+    _inherit = 'product.template'
+
+    consigned_default_commission_type = fields.Selection(
+        COMMISSION_TYPE,
+        string='Consigned Default Commission Type',
+        default='percentage',
+    )
+
+    consigned_default_commission_value = fields.Float(
+        string='Consigned Default Commission Value',
+        default=0.0,
+    )

@@ -9,10 +9,3 @@ class ProductTemplate(models.Model):
     can_be_consigned = fields.Boolean(string='Can be Consigned', default=False,
                                     help='Check this if the product can be used in consignment operations')
 
-    consigned_default_commission = fields.Float(
-        string='Consigned Default Commission',
-        default=0.0,
-        help='Default commission for consigned products'
-    )
-
-

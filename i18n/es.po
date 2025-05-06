@@ -6,12 +6,650 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-19 10:00+0000\n"
-"PO-Revision-Date: 2024-03-19 10:00+0000\n"
+"POT-Creation-Date: 2025-05-05 20:19+0000\n"
+"PO-Revision-Date: 2025-05-05 20:19+0000\n"
 "Last-Translator: \n"
-"Language-Team: Spanish\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: es\n" 
+"Plural-Forms: \n"
+
+#. module: sale_consignment_gn
+#: model:ir.actions.report,print_report_name:sale_consignment_gn.action_report_consignment_partner_stock
+msgid ""
+"'Consignment - %s' % "
+"(context_timestamp(datetime.datetime.now()).strftime(\"%Y-%m-%d\"))"
+msgstr ""
+"'Consignación - %s' % "
+"(context_timestamp(datetime.datetime.now()).strftime(\"%Y-%m-%d\"))"
+
+#. module: sale_consignment_gn
+#: model:ir.actions.report,print_report_name:sale_consignment_gn.action_report_consignment_order_form
+msgid "'Formulario - %s' % (object.display_name)"
+msgstr "'Formulario - %s' % (object.display_name)"
+
+#. module: sale_consignment_gn
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.consignment_order_template_report
+msgid "<strong>Customer</strong>"
+msgstr "<strong>Cliente</strong>"
+
+#. module: sale_consignment_gn
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.consignment_partner_stock_report
+msgid "<strong>Partner:</strong>"
+msgstr "<strong>Socio:</strong>"
+
+#. module: sale_consignment_gn
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.consignment_partner_stock_report
+msgid "<strong>Settlement Date:</strong>"
+msgstr "<strong>Fecha de liquidación:</strong>"
+
+#. module: sale_consignment_gn
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.consignment_order_template_report
+msgid "<strong>Settlement Date</strong>"
+msgstr "<strong>Fecha de liquidación</strong>"
+
+#. module: sale_consignment_gn
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.consignment_order_template_report
+msgid "<strong>Total a pagar:</strong>"
+msgstr "<strong>Total a pagar:</strong>"
+
+#. module: sale_consignment_gn
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.consignment_partner_stock_report
+msgid "<strong>Total</strong>"
+msgstr "<strong>Total</strong>"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_consigned_order__message_needaction
+msgid "Action Needed"
+msgstr "Acción requerida"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_consigned_order__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_consigned_order__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Decoración de excepción de actividad"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_consigned_order__activity_state
+msgid "Activity State"
+msgstr "Estado de actividad"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_consigned_order__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Icono de tipo de actividad"
+
+#. module: sale_consignment_gn
+#: model:res.groups,name:sale_consignment_gn.group_sale_consignment_manager
+msgid "Administrator"
+msgstr "Administrador"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_consigned_order__message_attachment_count
+msgid "Attachment Count"
+msgstr "Recuento de adjuntos"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_res_company__auto_validate_consignment
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_res_config_settings__auto_validate_consignment
+msgid "Auto-validate Consignment Orders"
+msgstr "Auto-validar órdenes de consignación"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,help:sale_consignment_gn.field_res_config_settings__auto_validate_consignment
+msgid "Automatically validate consignment orders upon creation"
+msgstr "Validar automáticamente las órdenes de consignación al crearlas"
+
+#. module: sale_consignment_gn
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.consigned_order_line_search
+msgid "By Partner"
+msgstr "Por socio"
+
+#. module: sale_consignment_gn
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.consigned_order_line_search
+msgid "By Product"
+msgstr "Por producto"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_product_product__can_be_consigned
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_product_template__can_be_consigned
+msgid "Can be Consigned"
+msgstr "Puede ser consignado"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields.selection,name:sale_consignment_gn.selection__consigned_order__state__cancel
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: sale_consignment_gn
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.view_consigned_report_wizard_form
+msgid "Cancelar"
+msgstr "Cancelar"
+
+#. module: sale_consignment_gn
+#. odoo-python
+#: code:addons/sale_consignment_gn/models/consigned_order.py:0
+msgid "Cannot confirm an order without lines."
+msgstr "No se puede confirmar una orden sin líneas."
+
+#. module: sale_consignment_gn
+#. odoo-python
+#: code:addons/sale_consignment_gn/models/consigned_order.py:0
+msgid "Cannot set to done if not confirmed."
+msgstr "No se puede marcar como realizado si no está confirmado."
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,help:sale_consignment_gn.field_product_product__can_be_consigned
+#: model:ir.model.fields,help:sale_consignment_gn.field_product_template__can_be_consigned
+msgid "Check this if the product can be used in consignment operations"
+msgstr "Marque esto si el producto puede ser utilizado en operaciones de consignación"
+
+#. module: sale_consignment_gn
+#: model:ir.actions.act_window,name:sale_consignment_gn.action_consigned_commission
+msgid "Comisiones"
+msgstr "Comisiones"
+
+#. module: sale_consignment_gn
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.view_consigned_commission_form
+msgid "Comisión"
+msgstr "Comisión"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_consigned_order_line__commission_amount
+msgid "Commission Amount"
+msgstr "Importe de la comisión"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_consigned_commission__commission_type
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_consigned_order_line__commission_type
+msgid "Commission Type"
+msgstr "Tipo de comisión"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_consigned_commission__commission_value
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_consigned_order_line__commission_value
+msgid "Commission Value"
+msgstr "Valor de la comisión"
+
+#. module: sale_consignment_gn
+#: model:ir.ui.menu,name:sale_consignment_gn.menu_consigned_commission
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.preimpresos_partner_preferences_extended
+msgid "Commissions"
+msgstr "Comisiones"
+
+#. module: sale_consignment_gn
+#: model:ir.model,name:sale_consignment_gn.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_consigned_order__company_id
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_consigned_order_line__company_id
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_consigned_partner_stock__company_id
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.view_consigned_partner_stock_search
+msgid "Company"
+msgstr "Compañía"
+
+#. module: sale_consignment_gn
+#: model:ir.model,name:sale_consignment_gn.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: sale_consignment_gn
+#: model:ir.ui.menu,name:sale_consignment_gn.menu_sale_consignment_config
+msgid "Configuration"
+msgstr "Configuración"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields.selection,name:sale_consignment_gn.selection__consigned_order__state__confirmed
+msgid "Confirmed"
+msgstr "Confirmado"
+
+#. module: sale_consignment_gn
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.product_template_search_view_consignment
+msgid "Consigned"
+msgstr "Consignado"
+
+#. module: sale_consignment_gn
+#: model:ir.model,name:sale_consignment_gn.model_consigned_commission
+msgid "Consigned Commission"
+msgstr "Comisión de consignación"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_res_partner__consigned_commission_ids
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_res_users__consigned_commission_ids
+msgid "Consigned Commissions"
+msgstr "Comisiones de consignación"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_product_product__consigned_default_commission_type
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_product_template__consigned_default_commission_type
+msgid "Consigned Default Commission Type"
+msgstr "Tipo de comisión predeterminada para consignación"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_product_product__consigned_default_commission_value
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_product_template__consigned_default_commission_value
+msgid "Consigned Default Commission Value"
+msgstr "Valor de comisión predeterminado para consignación"
+
+#. module: sale_consignment_gn
+#: model:ir.model,name:sale_consignment_gn.model_consigned_order
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.view_consigned_order_form
+msgid "Consigned Order"
+msgstr "Orden de consignación"
+
+#. module: sale_consignment_gn
+#: model:ir.model,name:sale_consignment_gn.model_consigned_order_line
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.consigned_order_line_form
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.consigned_order_line_list
+msgid "Consigned Order Line"
+msgstr "Línea de orden de consignación"
+
+#. module: sale_consignment_gn
+#: model:ir.actions.act_window,name:sale_consignment_gn.consigned_order_line_action
+msgid "Consigned Order Lines"
+msgstr "Líneas de órdenes de consignación"
+
+#. module: sale_consignment_gn
+#: model:ir.actions.act_window,name:sale_consignment_gn.action_consigned_order
+#: model:ir.ui.menu,name:sale_consignment_gn.menu_consigned_order
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.view_consigned_order_list
+msgid "Consigned Orders"
+msgstr "Órdenes de consignación"
+
+#. module: sale_consignment_gn
+#: model:ir.actions.act_window,name:sale_consignment_gn.action_consigned_partner_stock
+#: model:ir.model,name:sale_consignment_gn.model_consigned_partner_stock
+msgid "Consigned Partner Stock"
+msgstr "Stock de consignación por socio"
+
+#. module: sale_consignment_gn
+#: model:ir.ui.menu,name:sale_consignment_gn.menu_consigned_report
+msgid "Consigned Report"
+msgstr "Informe de consignación"
+
+#. module: sale_consignment_gn
+#. odoo-python
+#: code:addons/sale_consignment_gn/wizards/consigned_report_wizard.py:0
+#: model:ir.model,name:sale_consignment_gn.model_consigned_report_wizard
+msgid "Consigned Report Wizard"
+msgstr "Asistente de informe de consignación"
+
+#. module: sale_consignment_gn
+#: model:ir.ui.menu,name:sale_consignment_gn.menu_sale_consignment_root
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.res_config_settings_view_form
+msgid "Consignment"
+msgstr "Consignación"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_res_partner__consignment_count
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_res_users__consignment_count
+msgid "Consignment Count"
+msgstr "Recuento de consignaciones"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_res_company__consignment_days_limit
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_res_config_settings__consignment_days_limit
+msgid "Consignment Days Limit"
+msgstr "Límite de días de consignación"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_res_config_settings__group_consignment_user
+msgid "Consignment Features"
+msgstr "Características de consignación"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_res_company__consignment_journal_id
+msgid "Consignment Journal"
+msgstr "Diario de consignación"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_stock_move__consignment_line_id
+msgid "Consignment Line"
+msgstr "Línea de consignación"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_stock_picking__consignment_id
+msgid "Consignment Order"
+msgstr "Orden de consignación"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_res_partner__consignment_order_ids
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_res_users__consignment_order_ids
+msgid "Consignment Orders"
+msgstr "Órdenes de consignación"
+
+#. module: sale_consignment_gn
+#: model:ir.model,name:sale_consignment_gn.model_report_sale_consignment_gn_consignment_partner_stock_report
+msgid "Consignment Partner Stock Report"
+msgstr "Informe de stock de consignación por socio"
+
+#. module: sale_consignment_gn
+#: model:ir.actions.report,name:sale_consignment_gn.action_report_consignment_partner_stock
+msgid "Consignment Report"
+msgstr "Informe de consignación"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_res_config_settings__module_sale_consignment_report
+msgid "Consignment Reports"
+msgstr "Informes de consignación"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_res_partner__consignment_stock_ids
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_res_users__consignment_stock_ids
+msgid "Consignment Stock"
+msgstr "Stock en consignación"
+
+#. module: sale_consignment_gn
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.view_partners_form_consignment
+msgid "Consignments"
+msgstr "Consignaciones"
+
+#. module: sale_consignment_gn
+#: model:ir.model,name:sale_consignment_gn.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: sale_consignment_gn
+#. odoo-python
+#: code:addons/sale_consignment_gn/models/consigned_order.py:0
+msgid "Create Return"
+msgstr "Crear devolución"
+
+#. module: sale_consignment_gn
+#: model_terms:ir.actions.act_window,help:sale_consignment_gn.product_template_action_consignment_view
+msgid "Create a new product"
+msgstr "Crear un nuevo producto"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_consigned_commission__create_uid
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_consigned_order__create_uid
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_consigned_order_line__create_uid
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_consigned_partner_stock__create_uid
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_consigned_report_wizard__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consigned_order__currency_id
+#: model:ir.model.fields,field_description:sale_consigned_order_line__currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consigned_order__partner_id
+#: model:ir.model.fields,field_description:sale_consigned_order_line__partner_id
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: sale_consignment_gn
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.consignment_partner_stock_report
+msgid "Customer Signature"
+msgstr "Firma del cliente"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_res_company__default_consignment_account_id
+msgid "Default Consignment Account"
+msgstr "Cuenta de consignación predeterminada"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consigned_commission__display_name
+#: model:ir.model.fields,field_description:sale_consigned_order__display_name
+#: model:ir.model.fields,field_description:sale_consigned_order_line__display_name
+#: model:ir.model.fields,field_description:sale_consigned_partner_stock__display_name
+#: model:ir.model.fields,field_description:sale_consigned_report_wizard__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields.selection,name:sale_consignment_gn.selection__consigned_order__state__done
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.view_consigned_order_form
+msgid "Done"
+msgstr "Realizado"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields.selection,name:sale_consignment_gn.selection__consigned_order__state__draft
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: sale_consignment_gn
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.view_consigned_report_wizard_form
+msgid ""
+"Este informe mostrará las consignaciones agrupadas por cliente a la fecha de liquidación especificada.\n"
+"                    Puede filtrar opcionalmente por clientes y productos específicos."
+msgstr ""
+"Este informe mostrará las consignaciones agrupadas por cliente a la fecha de liquidación especificada.\n"
+"                    Puede filtrar opcionalmente por clientes y productos específicos."
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields.selection,name:sale_consignment_gn.selection__consigned_commission__commission_type__fixed
+#: model:ir.model.fields.selection,name:sale_consignment_gn.selection__product_template__consigned_default_commission_type__fixed
+msgid "Fixed"
+msgstr "Fijo"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consigned_order__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consigned_order__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (Socios)"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,help:sale_consignment_gn.field_consigned_order__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Icono de Font Awesome, p.ej. fa-tasks"
+
+#. module: sale_consignment_gn
+#: model:ir.actions.report,name:sale_consignment_gn.action_report_consignment_order_form
+msgid "Form - Consignment Order"
+msgstr "Formulario - Orden de consignación"
+
+#. module: sale_consignment_gn
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.view_consigned_report_wizard_form
+msgid "Generar Informe"
+msgstr "Generar Informe"
+
+#. module: sale_consignment_gn
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.consigned_order_line_search
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.view_consigned_commission_search
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.view_consigned_partner_stock_search
+msgid "Group By"
+msgstr "Agrupar por"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consigned_order__has_message
+msgid "Has Message"
+msgstr "Tiene mensaje"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consigned_commission__id
+#: model:ir.model.fields,field_description:sale_consigned_order__id
+#: model:ir.model.fields,field_description:sale_consigned_order_line__id
+#: model:ir.model.fields,field_description:sale_consigned_partner_stock__id
+#: model:ir.model.fields,field_description:sale_consigned_report_wizard__id
+msgid "ID"
+msgstr "ID"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consigned_order__activity_exception_icon
+msgid "Icon"
+msgstr "Icono"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,help:sale_consigned_order__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icono para indicar una actividad de excepción."
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,help:sale_consigned_order__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, hay nuevos mensajes que requieren su atención."
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,help:sale_consigned_order__message_has_error
+#: model:ir.model.fields,help:sale_consigned_order__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si está marcado, algunos mensajes tienen un error de entrega."
+
+#. module: sale_consignment_gn
+#: model:ir.actions.act_window,name:sale_consigned_report_wizard
+#: model_terms:ir.ui.view,arch_db:sale_consigned_report_wizard_form
+msgid "Informe de Consignaciones"
+msgstr "Informe de Consignaciones"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consigned_order__is_consignment
+msgid "Is Consignment"
+msgstr "Es consignación"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consigned_order__message_is_follower
+msgid "Is Follower"
+msgstr "Es seguidor"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consigned_commission__write_uid
+#: model:ir.model.fields,field_description:sale_consigned_order__write_uid
+#: model:ir.model.fields,field_description:sale_consigned_order_line__write_uid
+#: model:ir.model.fields,field_description:sale_consigned_partner_stock__write_uid
+#: model:ir.model.fields,field_description:sale_consigned_report_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consigned_commission__write_date
+#: model:ir.model.fields,field_description:sale_consigned_order__write_date
+#: model:ir.model.fields,field_description:sale_consigned_order_line__write_date
+#: model:ir.model.fields,field_description:sale_consigned_partner_stock__write_date
+#: model:ir.model.fields,field_description:sale_consigned_report_wizard__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: sale_consignment_gn
+#: model:ir.module.category,description:sale_consignment_gn.module_category_sale_consignment
+msgid "Manage consignment sales operations"
+msgstr "Gestionar operaciones de ventas en consignación"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,help:sale_consigned_order__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Estado basado en actividades\n"
+"Vencida: la fecha límite ya ha pasado\n"
+"Hoy: La fecha de la actividad es hoy\n"
+"Planificada: Actividades futuras."
+
+#. module: sale_consignment_gn
+#: model:ir.model,name:sale_consignment_gn.model_stock_move
+msgid "Stock Move"
+msgstr "Movimiento de stock"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_consigned_order_line__stock_move_ids
+msgid "Stock Movements"
+msgstr "Movimientos de stock"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,help:sale_consigned_order_line__unit_price
+msgid ""
+"The sale price is managed from the product template. Click on the 'Configure"
+" Variants' button to set the extra attribute prices."
+msgstr ""
+"El precio de venta se gestiona desde la plantilla de producto. Haga clic en el botón "
+"'Configurar variantes' para establecer los precios de atributos adicionales."
+
+#. module: sale_consignment_gn
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.consigned_order_line_list
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.view_consigned_order_list
+msgid "Total price"
+msgstr "Precio total"
+
+#. module: sale_consignment_gn
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.consigned_order_line_list
+msgid "Total quantity"
+msgstr "Cantidad total"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,help:sale_consigned_order__consignment_count
+#: model:ir.model.fields,help:sale_consigned_order__consignment_count
+msgid "Total quantity of consigned products for this partner"
+msgstr "Cantidad total de productos en consignación para este socio"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consigned_order__tracking_count
+#: model:ir.model.fields,field_description:sale_consigned_order_line__stock_tracking_count
+msgid "Tracking Count"
+msgstr "Recuento de seguimiento"
+
+#. module: sale_consignment_gn
+#: model:ir.model,name:sale_consignment_gn.model_stock_picking
+msgid "Transfer"
+msgstr "Traslado"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consignment_gn.field_consigned_order__picking_count
+msgid "Transfer Count"
+msgstr "Recuento de traslados"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consigned_order__picking_ids
+#: model:ir.model.fields,field_description:sale_consigned_order_line__picking_ids
+msgid "Transfers"
+msgstr "Traslados"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,help:sale_consigned_order__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo de actividad de excepción en el registro."
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consigned_order_line__unit_price
+msgid "Unit Price"
+msgstr "Precio unitario"
+
+#. module: sale_consignment_gn
+#: model:res.groups,name:sale_consignment_gn.group_sale_consignment_user
+msgid "User"
+msgstr "Usuario"
+
+#. module: sale_consignment_gn
+#: model_terms:ir.ui.view,arch_db:sale_consignment_gn.view_consigned_order_form
+msgid "Validate"
+msgstr "Validar"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consigned_order__warehouse_id
+msgid "Warehouse"
+msgstr "Almacén"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,field_description:sale_consigned_order__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: sale_consignment_gn
+#: model:ir.model.fields,help:sale_consigned_order__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicaciones del sitio web"
+
+#. module: sale_consignment_gn
+#: model_terms:ir.actions.act_window,help:sale_consigned_order__activity_state
+msgid ""
+"You must define a product for everything you sell or purchase,\n"
+"                whether it's a storable product, a consumable or a service."
+msgstr ""
+"Debe definir un producto para todo lo que venda o compre,\n"
+"                ya sea un producto almacenable, un consumible o un servicio."

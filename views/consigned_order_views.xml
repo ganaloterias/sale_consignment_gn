@@ -26,9 +26,9 @@
         <field name="arch" type="xml">
             <form string="Consigned Order">
                 <header>
-                    <button class="btn btn-primary" name="action_confirm" string="Validate" type="object" icon="fa-check" groups="sale_consignment_gn.group_sale_consignment_user"/>
-                    <button class="btn btn-primary" name="action_create_return" string="Create Return" type="object" icon="fa-backward" groups="sale_consignment_gn.group_sale_consignment_user"/>
-                    <button class="btn btn-primary" name="%(action_report_consignment_order_form)d" string="Print Order" type="action" icon="fa-file-invoice" groups="sale_consignment_gn.group_sale_consignment_user"/>
+                    <button class="btn btn-primary" name="action_confirm" string="Validate" type="object" groups="sale_consignment_gn.group_sale_consignment_user" invisible="state != 'draft'"/>
+                    <button class="btn btn-primary" name="action_done" string="Done" type="object" icon="fa-check" groups="sale_consignment_gn.group_sale_consignment_user" invisible="state != 'confirmed'"/>
+                    <button class="btn btn-primary" name="%(action_report_consignment_order_form)d" string="Print Order" type="action" groups="sale_consignment_gn.group_sale_consignment_user"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,pending,confirmed,done"/>
                 </header>
                 <sheet>
@@ -52,6 +52,7 @@
                             <field name="company_id" groups="base.group_multi_company" optional="show"/>
                             <field name="currency_id" string="Moneda" invisible="1"/>
                             <field name="total_price" widget="monetary"/>
+                            <field name="total_commission_amount" widget="monetary"/>
                         </group>
                     </group>
                     <notebook>
@@ -62,6 +63,9 @@
                                     <field name="quantity"/>
                                     <field name="returned_quantity"/>
                                     <field name="remaining_quantity"/>
+                                    <field name="commission_type" optional="hide"/>
+                                    <field name="commission_value" optional="hide"/>
+                                    <field name="commission_amount"/>
                                     <field name="unit_price"/>
                                     <field name="total_price"/>
                                 </list>
