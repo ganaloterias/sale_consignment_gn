@@ -5,7 +5,6 @@ from odoo.exceptions import UserError
 
 ORDER_STATE = [
     ('draft', 'Draft'),
-    ('pending', 'Pending'),
     ('confirmed', 'Confirmed'),
     ('done', 'Done'),
     ('cancel', 'Cancel')
@@ -126,7 +125,7 @@ class ConsignedOrder(models.Model):
     @api.depends('order_line_ids')
     def _compute_total_price(self):
         for order in self:
-            order.total_price = sum(line.total_price for line in order.order_line_ids)
+            order.total_price = sum(line.to_pay_amount for line in order.order_line_ids)
 
     @api.depends('order_line_ids')
     def _compute_total_commission_amount(self):
@@ -159,6 +158,14 @@ class ConsignedOrder(models.Model):
             'view_mode': 'list,form',
             'domain': [('order_id', '=', self.id)],
         }
+
+    def action_recalculate_commission(self):
+        self.ensure_one()
+        for line in self.order_line_ids:
+            line._recalculate_commission()
+        self._compute_total_price()
+        self._compute_total_commission_amount()
+        return True
 
     def action_view_pickings(self):
         self.ensure_one()

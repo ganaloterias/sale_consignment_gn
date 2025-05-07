@@ -120,6 +120,10 @@ class ConsignedOrderLine(models.Model):
                 _logger.exception("Failed to create default commission: %s", e)
         return commission
 
+    def _recalculate_commission(self):
+        """Recalculate the commission for the current line."""
+        self.ensure_one()
+        self.commission_amount = self._get_or_create_commission().calculate_commission(self.total_price)
 
     """ Actions """
 

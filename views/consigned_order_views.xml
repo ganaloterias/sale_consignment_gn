@@ -29,7 +29,8 @@
                     <button class="btn btn-primary" name="action_confirm" string="Validate" type="object" groups="sale_consignment_gn.group_sale_consignment_user" invisible="state != 'draft'"/>
                     <button class="btn btn-primary" name="action_done" string="Done" type="object" icon="fa-check" groups="sale_consignment_gn.group_sale_consignment_user" invisible="state != 'confirmed'"/>
                     <button class="btn btn-primary" name="%(action_report_consignment_order_form)d" string="Print Order" type="action" groups="sale_consignment_gn.group_sale_consignment_user"/>
-                    <field name="state" widget="statusbar" statusbar_visible="draft,pending,confirmed,done"/>
+                    <button class="btn btn-primary" name="action_recalculate_commission" string="Recalculate Commission" type="object" groups="sale_consignment_gn.group_sale_consignment_user"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done"/>
                 </header>
                 <sheet>
                     <div name="button_box" class="oe_button_box">
@@ -65,9 +66,11 @@
                                     <field name="remaining_quantity"/>
                                     <field name="commission_type" optional="hide"/>
                                     <field name="commission_value" optional="hide"/>
-                                    <field name="commission_amount"/>
-                                    <field name="unit_price"/>
-                                    <field name="total_price"/>
+                                    <field name="currency_id" optional="hide"/>
+                                    <field name="commission_amount" optional="hide" widget="monetary"/>
+                                    <field name="unit_price" widget="monetary"/>
+                                    <field name="to_pay_amount" widget="monetary"/>
+                                    <field name="total_price" optional="hide"/>
                                 </list>
                             </field>
                         </page>
