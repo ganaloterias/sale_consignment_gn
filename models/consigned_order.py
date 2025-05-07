@@ -50,6 +50,7 @@ class ConsignedOrder(models.Model):
         string='Settlement Date',
         tracking=True
     )
+
     @api.constrains('settlement_date')
     def _check_settlement_date(self):
         for order in self:
@@ -66,6 +67,12 @@ class ConsignedOrder(models.Model):
     total_price = fields.Monetary(
         string='Total Price',
         compute='_compute_total_price',
+        currency_field='currency_id'
+    )
+    
+    total_commission_amount = fields.Monetary(
+        string='Total Commission Amount',
+        compute='_compute_total_commission_amount',
         currency_field='currency_id'
     )
 
@@ -120,6 +127,11 @@ class ConsignedOrder(models.Model):
     def _compute_total_price(self):
         for order in self:
             order.total_price = sum(line.total_price for line in order.order_line_ids)
+
+    @api.depends('order_line_ids')
+    def _compute_total_commission_amount(self):
+        for order in self:
+            order.total_commission_amount = sum(line.commission_amount for line in order.order_line_ids)
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -177,6 +189,14 @@ class ConsignedOrder(models.Model):
             'target': 'new',
             'context': {'default_picking_id': self.picking_ids[0].id if self.picking_ids else False, 'default_consignment_id': self.id},
         }
+
+    def action_done(self):
+        self.ensure_one()
+        if self.state != 'confirmed':
+            raise UserError(_('Cannot set to done if not confirmed.'))
+        self.picking_ids._action_done()
+        self.state = 'done'
+        return True
 
     def _create_picking(self, picking_type):
         self.ensure_one()

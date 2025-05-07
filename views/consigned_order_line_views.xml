@@ -27,6 +27,9 @@
         <field name="returned_quantity"/>
         <field name="remaining_quantity" sum="Total quantity"/>
         <field name="company_id" optional="show" readonly="1"/>
+        <field name="commission_type" optional="hide"/>
+        <field name="commission_value" optional="hide"/>
+        <field name="commission_amount" widget="monetary"/>
         <field name="currency_id" optional="hide"/>
         <field name="unit_price" widget="monetary"/>
         <field name="total_price" widget="monetary" sum="Total price"/>

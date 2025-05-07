@@ -14,9 +14,10 @@
             </div>
 
             <xpath expr="//page[@name='general_information']" position="after" >
-                <page name="Consignment" groups="sale_consignment_gn.group_sale_consignment_user">
+                <page name="Consignment" groups="sale_consignment_gn.group_sale_consignment_user" invisible="not can_be_consigned">
                     <group>
-                        <field name="consigned_default_commission" widget="percentage" class="w-25"/>
+                        <field name="consigned_default_commission_type"/>
+                        <field name="consigned_default_commission_value" class="w-25"/>
                     </group>
                 </page>
             </xpath>
